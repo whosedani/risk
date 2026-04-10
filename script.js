@@ -16,19 +16,21 @@
     }
 
     function applyConfig() {
-        const navCAText = document.getElementById('navCAText');
-        const navCommunity = document.getElementById('navCommunity');
-        const heroBuyBtn = document.getElementById('heroBuyBtn');
-        const buyBtn = document.getElementById('buyBtn');
-        const footerCA = document.getElementById('footerCA');
-        const heroTwitterBtn = document.getElementById('heroTwitterBtn');
-        const buyTwitterBtn = document.getElementById('buyTwitterBtn');
+        var navCAText = document.getElementById('navCAText');
+        var heroCA = document.getElementById('heroCA');
+        var footerCA = document.getElementById('footerCA');
+        var heroBuyBtn = document.getElementById('heroBuyBtn');
+        var buyBtn = document.getElementById('buyBtn');
+        var navTwitter = document.getElementById('navTwitter');
+        var heroTwitterBtn = document.getElementById('heroTwitterBtn');
+        var buyTwitterBtn = document.getElementById('buyTwitterBtn');
 
         if (navCAText) navCAText.textContent = CONFIG.ca;
+        if (heroCA) heroCA.textContent = CONFIG.ca;
         if (footerCA) footerCA.textContent = CONFIG.ca;
         if (heroBuyBtn && CONFIG.buy) heroBuyBtn.href = CONFIG.buy;
         if (buyBtn && CONFIG.buy) buyBtn.href = CONFIG.buy;
-        if (navCommunity && CONFIG.community) navCommunity.href = CONFIG.community;
+        if (navTwitter && CONFIG.twitter) navTwitter.href = CONFIG.twitter;
         if (heroTwitterBtn && CONFIG.twitter) heroTwitterBtn.href = CONFIG.twitter;
         if (buyTwitterBtn && CONFIG.twitter) buyTwitterBtn.href = CONFIG.twitter;
     }
@@ -108,6 +110,7 @@
 
     function initCopy() {
         const navCA = document.getElementById('navCA');
+        const heroCA = document.getElementById('heroCA');
         const footerCA = document.getElementById('footerCA');
         const toast = document.getElementById('toast');
 
@@ -120,6 +123,7 @@
         }
 
         if (navCA) navCA.addEventListener('click', doCopy);
+        if (heroCA) heroCA.addEventListener('click', doCopy);
         if (footerCA) footerCA.addEventListener('click', doCopy);
     }
 

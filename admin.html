@@ -153,10 +153,6 @@
             <input type="text" id="cfgTwitter" placeholder="https://x.com/...">
         </div>
         <div class="field">
-            <label>COMMUNITY URL</label>
-            <input type="text" id="cfgCommunity" placeholder="https://t.me/...">
-        </div>
-        <div class="field">
             <label>BUY URL</label>
             <input type="text" id="cfgBuy" placeholder="https://pump.fun/...">
         </div>
@@ -196,7 +192,6 @@
             const data = await res.json();
             document.getElementById('cfgCA').value = data.ca || '';
             document.getElementById('cfgTwitter').value = data.twitter || '';
-            document.getElementById('cfgCommunity').value = data.community || '';
             document.getElementById('cfgBuy').value = data.buy || '';
 
             document.getElementById('loginPanel').style.display = 'none';
@@ -216,7 +211,6 @@
         const body = {
             ca: document.getElementById('cfgCA').value.trim(),
             twitter: document.getElementById('cfgTwitter').value.trim(),
-            community: document.getElementById('cfgCommunity').value.trim(),
             buy: document.getElementById('cfgBuy').value.trim()
         };
 

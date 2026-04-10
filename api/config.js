@@ -57,7 +57,6 @@ export default async function handler(req, res) {
         const config = {
             ca: body.ca || '',
             twitter: body.twitter || '',
-            community: body.community || '',
             buy: body.buy || ''
         };
 
