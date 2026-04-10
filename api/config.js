@@ -15,7 +15,11 @@ export default async function handler(req, res) {
         });
         const data = await r.json();
         if (data.result) {
-            try { return JSON.parse(data.result); } catch { return {}; }
+            try {
+                let parsed = JSON.parse(data.result);
+                if (typeof parsed === 'string') parsed = JSON.parse(parsed);
+                return parsed;
+            } catch { return {}; }
         }
         return {};
     }
