@@ -21,12 +21,16 @@
         const heroBuyBtn = document.getElementById('heroBuyBtn');
         const buyBtn = document.getElementById('buyBtn');
         const footerCA = document.getElementById('footerCA');
+        const heroTwitterBtn = document.getElementById('heroTwitterBtn');
+        const buyTwitterBtn = document.getElementById('buyTwitterBtn');
 
         if (navCAText) navCAText.textContent = CONFIG.ca;
         if (footerCA) footerCA.textContent = CONFIG.ca;
         if (heroBuyBtn && CONFIG.buy) heroBuyBtn.href = CONFIG.buy;
         if (buyBtn && CONFIG.buy) buyBtn.href = CONFIG.buy;
         if (navCommunity && CONFIG.community) navCommunity.href = CONFIG.community;
+        if (heroTwitterBtn && CONFIG.twitter) heroTwitterBtn.href = CONFIG.twitter;
+        if (buyTwitterBtn && CONFIG.twitter) buyTwitterBtn.href = CONFIG.twitter;
     }
 
     // ── Nav scroll visibility ──
@@ -68,23 +72,34 @@
         const video = document.getElementById('heroVideo');
         if (!btn || !video) return;
 
+        var offLines = btn.querySelectorAll('.sound-off-line');
+        var onWave1 = btn.querySelector('.sound-on-wave1');
+        var onWave2 = btn.querySelector('.sound-on-wave2');
+        var label = btn.querySelector('.sound-label');
+
         btn.addEventListener('click', function () {
             if (video.muted) {
                 video.muted = false;
                 video.volume = 0;
-                btn.textContent = 'sound on';
+                label.textContent = 'sound on';
+                offLines.forEach(function (l) { l.style.display = 'none'; });
+                if (onWave1) onWave1.style.display = '';
+                if (onWave2) onWave2.style.display = '';
 
-                const target = 0.35;
-                const steps = 30;
-                const step = target / steps;
-                const interval = setInterval(function () {
-                    video.volume = Math.min(target, video.volume + step);
+                var target = 0.35;
+                var steps = 30;
+                var s = target / steps;
+                var interval = setInterval(function () {
+                    video.volume = Math.min(target, video.volume + s);
                     if (video.volume >= target) clearInterval(interval);
                 }, 50);
             } else {
                 video.muted = true;
                 video.volume = 0;
-                btn.textContent = 'sound off';
+                label.textContent = 'sound off';
+                offLines.forEach(function (l) { l.style.display = ''; });
+                if (onWave1) onWave1.style.display = 'none';
+                if (onWave2) onWave2.style.display = 'none';
             }
         });
     }
