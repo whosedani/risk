@@ -1,0 +1,464 @@
+:root {
+    --base: #0D0D0D;
+    --white: #FFFFFF;
+    --ember: #E8531E;
+    --smoke: #666666;
+    --font: 'Outfit', sans-serif;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: var(--font);
+    font-weight: 300;
+    background: var(--base);
+    color: var(--white);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+}
+
+::selection {
+    background: var(--ember);
+    color: var(--white);
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ─── NAV ─── */
+
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 32px;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.nav--visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.nav-brand {
+    font-weight: 800;
+    font-size: 18px;
+    color: var(--ember);
+    letter-spacing: -0.5px;
+    text-transform: lowercase;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-ca {
+    font-weight: 300;
+    font-size: 12px;
+    color: var(--smoke);
+    cursor: pointer;
+    transition: color 0.3s;
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.nav-ca:hover { color: var(--white); }
+
+.nav-community {
+    display: flex;
+    align-items: center;
+    color: var(--smoke);
+    transition: color 0.3s;
+}
+
+.nav-community:hover { color: var(--white); }
+
+.nav-community svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* ─── TOAST ─── */
+
+.toast {
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--white);
+    color: var(--base);
+    font-family: var(--font);
+    font-weight: 600;
+    font-size: 13px;
+    padding: 10px 24px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s, transform 0.3s;
+    z-index: 9999;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* ─── HERO ─── */
+
+.hero {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.hero-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+}
+
+.hero-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(13, 13, 13, 0.55);
+    z-index: -1;
+}
+
+.hero-content {
+    text-align: center;
+    z-index: 1;
+    padding: 0 24px;
+}
+
+.hero-line {
+    font-weight: 800;
+    font-size: clamp(56px, 10vw, 120px);
+    line-height: 1.05;
+    letter-spacing: -3px;
+    text-transform: uppercase;
+    color: var(--white);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.8s ease forwards;
+}
+
+.hero-line-2 {
+    animation-delay: 0.6s;
+}
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-sub {
+    font-weight: 300;
+    font-size: 15px;
+    color: var(--smoke);
+    margin-top: 48px;
+}
+
+.hero .btn-buy {
+    margin-top: 24px;
+}
+
+/* ─── BUY BUTTON ─── */
+
+.btn-buy {
+    display: inline-block;
+    background: var(--ember);
+    color: var(--white);
+    font-family: var(--font);
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 14px 40px;
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    transition: filter 0.3s;
+    text-decoration: none;
+}
+
+.btn-buy:hover {
+    filter: brightness(1.15);
+}
+
+/* ─── SOUND TOGGLE ─── */
+
+.sound-toggle {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    font-family: var(--font);
+    font-weight: 300;
+    font-size: 11px;
+    color: var(--smoke);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: color 0.3s;
+    z-index: 100;
+    letter-spacing: 0.5px;
+}
+
+.sound-toggle:hover { color: var(--white); }
+
+/* ─── TWEET SECTION ─── */
+
+.tweet {
+    padding: 100px 24px;
+    background: var(--base);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+.tweet-card {
+    background: rgba(255, 255, 255, 0.04);
+    padding: 32px;
+    max-width: 520px;
+    width: 100%;
+}
+
+.tweet-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tweet-swoosh {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+}
+
+.tweet-swoosh svg {
+    width: 100%;
+    height: 100%;
+    fill: var(--white);
+}
+
+.tweet-name {
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--white);
+}
+
+.tweet-handle {
+    font-weight: 300;
+    font-size: 15px;
+    color: var(--smoke);
+}
+
+.tweet-body {
+    font-weight: 400;
+    font-size: 22px;
+    color: var(--white);
+    line-height: 1.4;
+    margin-top: 16px;
+}
+
+.tweet-meta {
+    font-weight: 300;
+    font-size: 13px;
+    color: var(--smoke);
+    margin-top: 16px;
+}
+
+.tweet-caption {
+    font-weight: 300;
+    font-size: 14px;
+    color: var(--smoke);
+    text-align: center;
+    margin-top: 40px;
+}
+
+/* ─── MANIFESTO ─── */
+
+.manifesto {
+    padding: 80px 24px;
+    max-width: 640px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    background: var(--base);
+}
+
+.manifesto-title {
+    font-weight: 800;
+    font-size: 32px;
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    line-height: 1.1;
+}
+
+.manifesto-body {
+    font-weight: 300;
+    font-size: 17px;
+    color: var(--white);
+    line-height: 1.8;
+    margin-top: 32px;
+}
+
+.manifesto-body p {
+    margin-bottom: 24px;
+}
+
+.manifesto-body p:last-child {
+    margin-bottom: 0;
+}
+
+.manifesto-signoff {
+    font-weight: 300;
+    font-size: 15px;
+    color: var(--smoke);
+    font-style: italic;
+    margin-top: 40px;
+}
+
+/* ─── HOW TO BUY ─── */
+
+.howtobuy {
+    padding: 60px 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    background: var(--base);
+}
+
+.howtobuy-title {
+    font-weight: 800;
+    font-size: 14px;
+    color: var(--smoke);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+
+.howtobuy-steps {
+    max-width: 400px;
+    margin: 32px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.howtobuy-step {
+    font-weight: 300;
+    font-size: 16px;
+    color: var(--white);
+    text-align: left;
+}
+
+.step-num {
+    font-weight: 800;
+    color: var(--ember);
+    margin-right: 12px;
+}
+
+.howtobuy .btn-buy {
+    margin-top: 40px;
+}
+
+/* ─── FOOTER ─── */
+
+.footer {
+    padding: 80px 24px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    background: var(--base);
+}
+
+.footer-brand {
+    font-weight: 800;
+    font-size: 64px;
+    color: var(--white);
+    letter-spacing: -2px;
+    text-transform: uppercase;
+}
+
+.footer-tagline {
+    font-weight: 300;
+    font-size: 13px;
+    color: var(--smoke);
+    margin-top: 16px;
+}
+
+.footer-ca {
+    font-weight: 300;
+    font-size: 11px;
+    color: var(--smoke);
+    margin-top: 12px;
+    cursor: pointer;
+    transition: color 0.3s;
+    word-break: break-all;
+}
+
+.footer-ca:hover { color: var(--white); }
+
+/* ─── SCROLL REVEAL ─── */
+
+[data-reveal] {
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+[data-reveal].visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ─── RESPONSIVE ─── */
+
+@media (max-width: 768px) {
+    .nav { padding: 16px 20px; }
+
+    .manifesto-title { font-size: 22px; }
+
+    .footer-brand { font-size: 36px; }
+
+    .sound-toggle {
+        bottom: 20px;
+        right: 20px;
+    }
+
+    .tweet-card { padding: 24px; }
+
+    .tweet-body { font-size: 18px; }
+}

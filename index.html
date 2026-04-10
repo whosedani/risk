@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>risk</title>
+    <meta name="description" content="risk it all, take it all. on-chain.">
+    <meta property="og:title" content="$risk">
+    <meta property="og:description" content="risk it all, take it all. on-chain.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="$risk">
+    <meta name="twitter:description" content="risk it all, take it all. on-chain.">
+    <link rel="icon" href="/static/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+    <span class="nav-brand">risk</span>
+    <div class="nav-right">
+        <span class="nav-ca" id="navCA" title="Click to copy CA">
+            <span id="navCAText"></span>
+        </span>
+        <a class="nav-community" id="navCommunity" href="#" target="_blank" rel="noopener" aria-label="Community">
+            <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="5" r="3"/>
+                <circle cx="4" cy="9" r="2.5"/>
+                <circle cx="20" cy="9" r="2.5"/>
+                <path d="M12 10c-3 0-5 2-5 4.5V16h10v-1.5C17 12 15 10 12 10z"/>
+                <path d="M4 13c-2 0-3.5 1.2-3.5 3V17h4"/>
+                <path d="M20 13c2 0 3.5 1.2 3.5 3V17h-4"/>
+            </svg>
+        </a>
+    </div>
+</nav>
+
+<!-- TOAST -->
+<div class="toast" id="toast">copied.</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+    <video class="hero-video" id="heroVideo" autoplay loop muted playsinline>
+        <source src="static/hero.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1 class="hero-line hero-line-1">RISK IT ALL.</h1>
+        <h1 class="hero-line hero-line-2">TAKE IT ALL.</h1>
+        <p class="hero-sub">nike said it. we made it on-chain.</p>
+        <a class="btn-buy" id="heroBuyBtn" href="#" target="_blank" rel="noopener">buy $risk</a>
+    </div>
+    <button class="sound-toggle" id="soundToggle">sound off</button>
+</section>
+
+<!-- THE TWEET -->
+<section class="tweet" id="tweet">
+    <div class="tweet-card" data-reveal>
+        <div class="tweet-header">
+            <span class="tweet-swoosh">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M24 4.557a9.83 9.83 0 01-2.828.775 4.932 4.932 0 002.165-2.724 9.864 9.864 0 01-3.127 1.195 4.916 4.916 0 00-8.38 4.482A13.944 13.944 0 011.671 3.149a4.916 4.916 0 001.523 6.574 4.897 4.897 0 01-2.229-.616v.062a4.918 4.918 0 003.946 4.827 4.996 4.996 0 01-2.212.084 4.92 4.92 0 004.604 3.417 9.868 9.868 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.054 0 14.002-7.496 14.002-13.986 0-.21 0-.423-.015-.634A9.936 9.936 0 0024 4.557z"/>
+                </svg>
+            </span>
+            <span class="tweet-name">Nike</span>
+            <span class="tweet-name" style="color: #1D9BF0;">&#10004;</span>
+            <span class="tweet-handle">@Nike</span>
+        </div>
+        <p class="tweet-body">Risk it all. Take it all.</p>
+        <p class="tweet-meta">9:24 AM &middot; Apr 7, 2026 &middot; 36.4K Views</p>
+    </div>
+    <p class="tweet-caption" data-reveal>the same company behind 'just do it' just escalated.</p>
+</section>
+
+<!-- MANIFESTO -->
+<section class="manifesto" id="manifesto">
+    <h2 class="manifesto-title" data-reveal>ARE YOU GONNA GO FOR IT ALL?</h2>
+    <div class="manifesto-body" data-reveal>
+        <p>just do it was a whisper. risk it all is a roar.</p>
+        <p>nike didn't post a campaign. they posted a philosophy. the same energy that makes someone bet everything on a trade, quit a job to build something, leave comfort for the unknown.</p>
+        <p>this isn't about shoes. this is about the only question that matters: are you willing to risk everything for what you actually want?</p>
+    </div>
+    <p class="manifesto-signoff" data-reveal>$risk &mdash; the on-chain answer.</p>
+</section>
+
+<!-- HOW TO BUY -->
+<section class="howtobuy" id="howtobuy">
+    <h3 class="howtobuy-title">HOW TO BUY</h3>
+    <div class="howtobuy-steps">
+        <p class="howtobuy-step" data-reveal><span class="step-num">1</span> &mdash; download phantom</p>
+        <p class="howtobuy-step" data-reveal><span class="step-num">2</span> &mdash; buy sol</p>
+        <p class="howtobuy-step" data-reveal><span class="step-num">3</span> &mdash; swap for $risk on pump.fun</p>
+        <p class="howtobuy-step" data-reveal><span class="step-num">4</span> &mdash; risk it all. take it all.</p>
+    </div>
+    <a class="btn-buy" id="buyBtn" href="#" target="_blank" rel="noopener">buy $risk</a>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <p class="footer-brand">$RISK</p>
+    <p class="footer-tagline">risk it all, take it all. on-chain.</p>
+    <p class="footer-ca" id="footerCA"></p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RISK Admin</title>
+    <link rel="icon" href="/static/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0D0D0D;
+            --text: #FFFFFF;
+            --smoke: #666666;
+            --ember: #E8531E;
+            --card-bg: rgba(255, 255, 255, 0.04);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --font: 'Outfit', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font);
+            font-weight: 300;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .admin-container {
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .admin-title {
+            font-weight: 800;
+            font-size: 28px;
+            letter-spacing: 4px;
+            text-align: center;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+
+        .admin-subtitle {
+            text-align: center;
+            color: var(--smoke);
+            font-size: 13px;
+            margin-bottom: 40px;
+        }
+
+        #loginPanel, #configPanel {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 40px;
+        }
+
+        #configPanel { display: none; }
+
+        .field { margin-bottom: 20px; }
+
+        .field label {
+            display: block;
+            font-weight: 600;
+            font-size: 12px;
+            letter-spacing: 3px;
+            color: var(--ember);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .field input {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text);
+            font-family: var(--font);
+            font-weight: 300;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .field input:focus {
+            border-color: var(--ember);
+        }
+
+        .field input::placeholder {
+            color: var(--smoke);
+        }
+
+        .btn-admin {
+            width: 100%;
+            padding: 14px;
+            font-family: var(--font);
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--smoke);
+            cursor: pointer;
+            transition: border-color 0.3s, color 0.3s;
+            margin-top: 8px;
+        }
+
+        .btn-admin:hover {
+            border-color: var(--ember);
+            color: var(--ember);
+        }
+
+        .msg {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 13px;
+            min-height: 20px;
+        }
+
+        .msg.ok { color: #22884a; }
+        .msg.err { color: var(--ember); }
+    </style>
+</head>
+<body>
+
+<div class="admin-container">
+    <h1 class="admin-title">RISK</h1>
+    <p class="admin-subtitle">configuration panel</p>
+
+    <div id="loginPanel">
+        <div class="field">
+            <label>PASSWORD</label>
+            <input type="password" id="adminPass" placeholder="Enter admin password" autocomplete="off">
+        </div>
+        <button class="btn-admin" id="loginBtn">ACCESS</button>
+        <p class="msg" id="loginMsg"></p>
+    </div>
+
+    <div id="configPanel">
+        <div class="field">
+            <label>CONTRACT ADDRESS</label>
+            <input type="text" id="cfgCA" placeholder="Token contract address">
+        </div>
+        <div class="field">
+            <label>TWITTER URL</label>
+            <input type="text" id="cfgTwitter" placeholder="https://x.com/...">
+        </div>
+        <div class="field">
+            <label>COMMUNITY URL</label>
+            <input type="text" id="cfgCommunity" placeholder="https://t.me/...">
+        </div>
+        <div class="field">
+            <label>BUY URL</label>
+            <input type="text" id="cfgBuy" placeholder="https://pump.fun/...">
+        </div>
+        <button class="btn-admin" id="saveBtn">SAVE</button>
+        <p class="msg" id="saveMsg"></p>
+    </div>
+</div>
+
+<script>
+(function() {
+    let authHash = '';
+
+    async function sha256(str) {
+        const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+        return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    document.getElementById('loginBtn').addEventListener('click', async () => {
+        const pass = document.getElementById('adminPass').value;
+        if (!pass) return;
+
+        authHash = await sha256(pass);
+        const msg = document.getElementById('loginMsg');
+
+        try {
+            const res = await fetch('/api/config', {
+                headers: { 'Authorization': 'Bearer ' + authHash }
+            });
+
+            if (res.status === 401) {
+                msg.textContent = 'Invalid password.';
+                msg.className = 'msg err';
+                authHash = '';
+                return;
+            }
+
+            const data = await res.json();
+            document.getElementById('cfgCA').value = data.ca || '';
+            document.getElementById('cfgTwitter').value = data.twitter || '';
+            document.getElementById('cfgCommunity').value = data.community || '';
+            document.getElementById('cfgBuy').value = data.buy || '';
+
+            document.getElementById('loginPanel').style.display = 'none';
+            document.getElementById('configPanel').style.display = 'block';
+        } catch (e) {
+            msg.textContent = 'Connection error.';
+            msg.className = 'msg err';
+        }
+    });
+
+    document.getElementById('adminPass').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') document.getElementById('loginBtn').click();
+    });
+
+    document.getElementById('saveBtn').addEventListener('click', async () => {
+        const msg = document.getElementById('saveMsg');
+        const body = {
+            ca: document.getElementById('cfgCA').value.trim(),
+            twitter: document.getElementById('cfgTwitter').value.trim(),
+            community: document.getElementById('cfgCommunity').value.trim(),
+            buy: document.getElementById('cfgBuy').value.trim()
+        };
+
+        try {
+            const res = await fetch('/api/config', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + authHash
+                },
+                body: JSON.stringify(body)
+            });
+
+            if (res.ok) {
+                msg.textContent = 'Config saved.';
+                msg.className = 'msg ok';
+            } else {
+                const err = await res.json();
+                msg.textContent = err.error || 'Save failed.';
+                msg.className = 'msg err';
+            }
+        } catch (e) {
+            msg.textContent = 'Connection error.';
+            msg.className = 'msg err';
+        }
+
+        setTimeout(() => { msg.textContent = ''; }, 3000);
+    });
+})();
+</script>
+</body>
+</html>
